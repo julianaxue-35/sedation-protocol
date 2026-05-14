@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Post-op sedation protocol: dogs, days 0 to 14</title>
+<style>
+:root {
+  --bg: #ffffff;
+  --bg-secondary: #f5f4ee;
+  --bg-tertiary: #faf9f3;
+  --bg-info: #E6F1FB;
+  --bg-danger: #FCEBEB;
+  --bg-warning: #FAEEDA;
+  --bg-success: #EAF3DE;
+  --text-primary: #1a1a1a;
+  --text-secondary: #5f5e5a;
+  --text-tertiary: #888780;
+  --text-info: #0C447C;
+  --text-danger: #791F1F;
+  --text-warning: #633806;
+  --text-success: #27500A;
+  --border-tertiary: rgba(0,0,0,0.15);
+  --border-secondary: rgba(0,0,0,0.30);
+  --border-info: #185FA5;
+  --border-danger: #A32D2D;
+  --border-warning: #854F0B;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --fc-gray-bg: #F1EFE8; --fc-gray-border: #5F5E5A; --fc-gray-text: #2C2C2A;
+  --fc-coral-bg: #FAECE7; --fc-coral-border: #993C1D; --fc-coral-text: #4A1B0C;
+  --fc-blue-bg: #E6F1FB; --fc-blue-border: #185FA5; --fc-blue-text: #042C53;
+  --fc-teal-bg: #E1F5EE; --fc-teal-border: #0F6E56; --fc-teal-text: #04342C;
+  --fc-purple-bg: #EEEDFE; --fc-purple-border: #534AB7; --fc-purple-text: #26215C;
+  --fc-amber-bg: #FAEEDA; --fc-amber-border: #854F0B; --fc-amber-text: #412402;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1a1a1a;
+    --bg-secondary: #2c2c2a;
+    --bg-tertiary: #222220;
+    --bg-info: #042C53;
+    --bg-danger: #501313;
+    --bg-warning: #412402;
+    --bg-success: #173404;
+    --text-primary: #f5f4ee;
+    --text-secondary: #c2c0b6;
+    --text-tertiary: #9c9a92;
+    --text-info: #B5D4F4;
+    --text-danger: #F7C1C1;
+    --text-warning: #FAC775;
+    --text-success: #C0DD97;
+    --border-tertiary: rgba(255,255,255,0.15);
+    --border-secondary: rgba(255,255,255,0.30);
+    --fc-gray-bg: #444441; --fc-gray-border: #B4B2A9; --fc-gray-text: #F5F4EE;
+    --fc-coral-bg: #712B13; --fc-coral-border: #F0997B; --fc-coral-text: #F5F4EE;
+    --fc-blue-bg: #0C447C; --fc-blue-border: #85B7EB; --fc-blue-text: #F5F4EE;
+    --fc-teal-bg: #085041; --fc-teal-border: #5DCAA5; --fc-teal-text: #F5F4EE;
+    --fc-purple-bg: #3C3489; --fc-purple-border: #AFA9EC; --fc-purple-text: #F5F4EE;
+    --fc-amber-bg: #633806; --fc-amber-border: #EF9F27; --fc-amber-text: #F5F4EE;
+  }
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text-primary);
+  background: var(--bg-tertiary);
+  margin: 0;
+  padding: 0.75rem;
+}
+
+.container {
+  max-width: 760px;
+  margin: 0 auto;
+  background: var(--bg);
+  border-radius: var(--radius-lg);
+  padding: 1rem;
+  border: 0.5px solid var(--border-tertiary);
+}
+
+.header {
+  padding: 0 0 1rem;
+  border-bottom: 0.5px solid var(--border-tertiary);
+  margin-bottom: 1rem;
+}
+
+.header h1 { font-size: 20px; font-weight: 500; margin: 0 0 4px; line-height: 1.3; }
+.header p { font-size: 13px; color: var(--text-secondary); margin: 0; }
+
+.sec { padding: 1rem 0; }
+.sec-title { font-size: 17px; font-weight: 500; margin: 0 0 0.75rem; }
+
+/* Calculator */
+.calc-card {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  padding: 1rem;
+  margin: 0.75rem 0;
+}
+
+.calc-form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-bottom: 1rem;
+}
+
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field label { font-size: 13px; color: var(--text-secondary); font-weight: 500; }
+.field input, .field select {
+  font-family: inherit;
+  font-size: 16px;
+  padding: 10px 12px;
+  border: 0.5px solid var(--border-secondary);
+  border-radius: var(--radius-md);
+  background: var(--bg);
+  color: var(--text-primary);
+  min-height: 44px;
+  width: 100%;
+}
+.field input:focus, .field select:focus {
+  outline: none;
+  border-color: var(--text-info);
+  box-shadow: 0 0 0 2px var(--bg-info);
+}
+
+.field.dimmed { opacity: 0.5; }
+.field.dimmed select {
+  background: var(--bg-tertiary);
+}
+.field-help {
+  font-size: 11px;
+  color: var(--text-tertiary);
+  font-style: italic;
+  margin-top: 2px;
+  min-height: 14px;
+}
+
+.organ-warning-top {
+  background: var(--bg-warning);
+  border: 0.5px solid var(--border-warning);
+  border-left: 4px solid var(--border-warning);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  margin: 0 0 16px;
+  color: var(--text-warning);
+}
+.organ-warning-top h4 {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 4px;
+  color: var(--text-warning);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.organ-warning-top p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-warning);
+}
+
+.result-card {
+  background: var(--bg);
+  border-radius: var(--radius-md);
+  padding: 0.875rem 1rem;
+  border: 0.5px solid var(--border-tertiary);
+}
+
+.result-card h4 {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: 500;
+  margin: 12px 0 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.result-card h4:first-child { margin-top: 0; }
+
+.primary-drug {
+  font-size: 24px;
+  font-weight: 500;
+  margin: 0;
+  color: var(--text-primary);
+}
+
+.indication {
+  font-size: 13px;
+  color: var(--text-secondary);
+  font-style: italic;
+  margin: 2px 0 12px;
+}
+
+.dose-row {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 6px 0;
+  font-size: 14px;
+  gap: 2px;
+}
+.dose-row .label { color: var(--text-secondary); font-size: 12px; }
+.dose-row .value { font-weight: 500; font-size: 14px; }
+
+.dose-block {
+  margin: 10px 0;
+  padding: 12px 14px;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  border-left: 3px solid var(--border-info);
+}
+.dose-block.next-dose { border-left-color: var(--text-success); }
+.dose-block.max-dose { border-left-color: var(--border-danger); }
+
+.dose-block-title {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+
+.dose-block-value {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.dose-block-mg {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+.dose-block-tablet {
+  font-size: 14px;
+  color: var(--text-primary);
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 0.5px solid var(--border-tertiary);
+  font-weight: 500;
+}
+
+.dose-block-tablet .tab-label {
+  color: var(--text-secondary);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  display: block;
+  margin-bottom: 2px;
+  font-weight: 400;
+}
+
+.tablet-warn {
+  font-size: 12px;
+  color: var(--text-danger);
+  margin-top: 4px;
+  font-style: italic;
+}
+
+.max-warning-banner {
+  background: var(--bg-danger);
+  border: 0.5px solid var(--border-danger);
+  border-left: 4px solid var(--border-danger);
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  margin: 12px 0;
+  color: var(--text-danger);
+}
+.max-warning-banner h4 {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-danger);
+}
+.max-warning-banner p {
+  margin: 0;
+  font-size: 14px;
+  color: var(--text-danger);
+}
+
+.cap-warning {
+  background: var(--bg-danger);
+  color: var(--text-danger);
+  border: 0.5px solid var(--border-danger);
+  border-radius: var(--radius-md);
+  padding: 8px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  margin: 8px 0;
+}
+
+.organ-note {
+  background: var(--bg-warning);
+  color: var(--text-warning);
+  border: 0.5px solid var(--border-warning);
+  border-radius: var(--radius-md);
+  padding: 8px 12px;
+  font-size: 13px;
+  margin: 8px 0;
+}
+
+.result-section {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 0.5px solid var(--border-tertiary);
+}
+
+.adjunct-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.adjunct-card-mini {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  padding: 10px 12px;
+  font-size: 13px;
+}
+.adjunct-card-mini .name { font-weight: 500; margin-bottom: 4px; }
+.adjunct-card-mini .dose-line { color: var(--text-secondary); font-size: 12px; margin: 2px 0; }
+
+/* Flowchart */
+.fc { margin: 1rem 0; }
+
+.fc-box {
+  max-width: 460px;
+  margin: 0 auto;
+  border: 0.5px solid;
+  border-radius: var(--radius-lg);
+  padding: 12px 16px;
+  position: relative;
+}
+
+.fc-gray { background: var(--fc-gray-bg); border-color: var(--fc-gray-border); color: var(--fc-gray-text); }
+.fc-coral { background: var(--fc-coral-bg); border-color: var(--fc-coral-border); color: var(--fc-coral-text); }
+.fc-blue { background: var(--fc-blue-bg); border-color: var(--fc-blue-border); color: var(--fc-blue-text); }
+.fc-teal { background: var(--fc-teal-bg); border-color: var(--fc-teal-border); color: var(--fc-teal-text); }
+.fc-purple { background: var(--fc-purple-bg); border-color: var(--fc-purple-border); color: var(--fc-purple-text); }
+.fc-amber { background: var(--fc-amber-bg); border-color: var(--fc-amber-border); color: var(--fc-amber-text); }
+
+.fc-step-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+  opacity: 0.75;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.fc-box-title { font-size: 15px; font-weight: 500; margin-bottom: 4px; line-height: 1.3; }
+.fc-box-sub { font-size: 13px; opacity: 0.9; line-height: 1.4; }
+
+.fc-box-list {
+  margin: 8px 0 0;
+  font-size: 13px;
+  line-height: 1.5;
+  padding: 0;
+  list-style: none;
+}
+.fc-box-list li { padding: 2px 0 2px 14px; position: relative; }
+.fc-box-list li::before { content: '·'; position: absolute; left: 4px; font-weight: bold; font-size: 18px; line-height: 1; top: 3px; }
+
+.fc-cap-line { font-weight: 500; color: var(--text-danger); }
+.fc-safe-line { color: var(--text-success); }
+
+@media (prefers-color-scheme: dark) {
+  .fc-cap-line { color: #F7C1C1; }
+  .fc-safe-line { color: #C0DD97; }
+}
+
+.fc-action-row {
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 0.5px dashed currentColor;
+  font-size: 13px;
+  opacity: 0.95;
+  line-height: 1.4;
+}
+
+.fc-arrow-down {
+  width: 2px;
+  height: 22px;
+  background: var(--text-secondary);
+  margin: 4px auto;
+  position: relative;
+}
+.fc-arrow-down::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 7px solid var(--text-secondary);
+}
+
+.fc-pair {
+  max-width: 460px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+.fc-pair .fc-box { max-width: none; margin: 0; }
+
+.fc-callout {
+  max-width: 460px;
+  margin: 12px auto;
+  background: var(--bg-info);
+  border-left: 3px solid var(--border-info);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: var(--text-info);
+  line-height: 1.5;
+}
+
+.fc-split {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.fc-split-half {
+  background: rgba(255,255,255,0.5);
+  border-radius: var(--radius-md);
+  padding: 8px 10px;
+  font-size: 13px;
+  line-height: 1.4;
+}
+@media (prefers-color-scheme: dark) {
+  .fc-split-half { background: rgba(255,255,255,0.08); }
+}
+.fc-split-half strong { display: block; margin-bottom: 4px; font-size: 13px; }
+
+.fc-warn-inline {
+  margin-top: 10px;
+  padding: 8px 10px;
+  background: rgba(0,0,0,0.06);
+  border-radius: var(--radius-md);
+  font-size: 12px;
+  font-style: italic;
+  line-height: 1.4;
+}
+@media (prefers-color-scheme: dark) {
+  .fc-warn-inline { background: rgba(255,255,255,0.08); }
+}
+
+/* Drug reference */
+.drug-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+.drug-card {
+  background: var(--bg);
+  border: 0.5px solid var(--border-tertiary);
+  border-radius: var(--radius-lg);
+  padding: 1rem 1.25rem;
+}
+.drug-card h4 { font-size: 15px; font-weight: 500; margin: 0 0 0.5rem; }
+.drug-card dl { margin: 0; font-size: 13px; }
+.drug-card dt { color: var(--text-secondary); font-size: 12px; margin-top: 8px; }
+.drug-card dd { margin: 2px 0 0; color: var(--text-primary); }
+
+.alert {
+  border-radius: var(--radius-lg);
+  padding: 1rem 1.25rem;
+  margin-bottom: 12px;
+  border: 0.5px solid;
+}
+.alert-danger { background: var(--bg-danger); border-color: var(--border-danger); }
+.alert-warning { background: var(--bg-warning); border-color: var(--border-warning); }
+.alert-info { background: var(--bg-info); border-color: var(--border-info); }
+
+.alert h4 { font-size: 14px; font-weight: 500; margin: 0 0 0.5rem; }
+.alert ul { margin: 0; padding-left: 1.25rem; font-size: 13px; line-height: 1.6; }
+.alert li { margin: 4px 0; }
+
+.alert-danger h4 { color: var(--text-danger); }
+.alert-warning h4 { color: var(--text-warning); }
+.alert-info h4 { color: var(--text-info); }
+
+.tag {
+  display: inline-block;
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 10px;
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  margin-right: 4px;
+  margin-bottom: 6px;
+}
+
+.cap { color: var(--text-danger); font-weight: 500; }
+.safe { color: var(--text-success); }
+
+.footnote {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  padding: 0.75rem 0;
+  border-top: 0.5px solid var(--border-tertiary);
+  margin-top: 1rem;
+  line-height: 1.5;
+}
+
+@media (min-width: 600px) {
+  body { padding: 1.5rem; }
+  .container { padding: 1.5rem 2rem 2rem; }
+  .header h1 { font-size: 22px; }
+  .calc-form { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+  .drug-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+  .adjunct-grid { grid-template-columns: 1fr 1fr; }
+  .fc-box { max-width: 520px; }
+  .fc-pair { max-width: 680px; grid-template-columns: 1fr 1fr; }
+  .fc-callout { max-width: 680px; }
+  .fc-split { grid-template-columns: 1fr 1fr; }
+}
+
+@media print {
+  body { background: white; padding: 0; }
+  .container { border: none; padding: 0; max-width: 100%; }
+  .alert, .drug-card, .fc-box { break-inside: avoid; }
+  .sec { break-inside: avoid; }
+  .calc-card { background: white; border: 0.5px solid #ccc; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<div class="header">
+  <h1>Post-op sedation protocol: dogs, days 0 to 14</h1>
+  <p>Decision support to prevent serotonin syndrome. For veterinary use only. Version 1.6.</p>
+</div>
+
+<section class="sec">
+  <h3 class="sec-title">Dose calculator</h3>
+  <div class="calc-card">
+    <div class="calc-form">
+      <div class="field">
+        <label for="weight">Patient weight (kg)</label>
+        <input type="number" id="weight" min="0.5" max="80" step="0.1" value="20">
+      </div>
+      <div class="field">
+        <label for="behaviour">Primary behaviour</label>
+        <select id="behaviour">
+          <option value="fear">Fearful</option>
+          <option value="arousal">Aroused or reactive</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="serotonergic">On another serotonergic drug?</label>
+        <select id="serotonergic">
+          <option value="no">No</option>
+          <option value="yes">Yes</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="organ">Renal or hepatic disease?</label>
+        <select id="organ">
+          <option value="no">No</option>
+          <option value="yes">Yes</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="current-dose">Current dose (mg/kg)</label>
+        <input type="number" id="current-dose" min="0" max="20" step="any" value="4">
+      </div>
+      <div class="field" id="traz-strength-field">
+        <label for="traz-strength">Trazodone tablet strength</label>
+        <select id="traz-strength">
+          <option value="25">25 mg</option>
+          <option value="50" selected>50 mg</option>
+          <option value="100">100 mg</option>
+        </select>
+        <div class="field-help" id="traz-help"></div>
+      </div>
+      <div class="field" id="clon-strength-field">
+        <label for="clon-strength">Clonidine tablet strength</label>
+        <select id="clon-strength">
+          <option value="100" selected>100 mcg</option>
+          <option value="150">150 mcg</option>
+          <option value="1200">1200 mcg (compounded)</option>
+        </select>
+        <div class="field-help" id="clon-help"></div>
+      </div>
+    </div>
+
+    <div id="calc-result" class="result-card">
+      <p style="margin:0;color:var(--text-secondary);font-size:13px">Enter patient details to see recommended dose.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <h3 class="sec-title">Decision flowchart</h3>
+  <div class="fc">
+
+    <div class="fc-box fc-gray">
+      <span class="fc-step-label">Step 1</span>
+      <div class="fc-box-title">Patient assessment</div>
+      <div class="fc-box-sub">Post-op day 0 to 14, requires sedation</div>
+    </div>
+    <div class="fc-arrow-down"></div>
+
+    <div class="fc-box fc-coral">
+      <span class="fc-step-label">Step 2</span>
+      <div class="fc-box-title">Screen for serotonergic drugs</div>
+      <div class="fc-box-sub">If any present, trazodone cap drops from 10 to 7 mg/kg. See list below.</div>
+    </div>
+    <div class="fc-arrow-down"></div>
+
+    <div class="fc-box fc-blue">
+      <span class="fc-step-label">Step 3</span>
+      <div class="fc-box-title">Assess primary behaviour</div>
+      <div class="fc-box-sub">Choose primary drug based on dominant behaviour</div>
+    </div>
+    <div class="fc-arrow-down"></div>
+
+    <div class="fc-pair">
+      <div class="fc-box fc-teal">
+        <span class="fc-step-label">Step 4A · For fearful patient</span>
+        <div class="fc-box-title">Trazodone</div>
+        <ul class="fc-box-list">
+          <li>Start 4 mg/kg PO</li>
+          <li>1 to 2 h pre-procedure</li>
+          <li>Every 8 hours</li>
+          <li>Titrate +25% every 48 h</li>
+          <li>Reassess at each step</li>
+          <li>Max 10 mg/kg standalone</li>
+          <li class="fc-cap-line">Max 7 mg/kg with serotonergic</li>
+        </ul>
+        <div class="fc-action-row">
+          <strong>If no response at max:</strong> add clonidine at starting dose
+        </div>
+      </div>
+
+      <div class="fc-box fc-teal">
+        <span class="fc-step-label">Step 4B · For aroused or reactive patient</span>
+        <div class="fc-box-title">Clonidine</div>
+        <ul class="fc-box-list">
+          <li>Start 0.02 mg/kg PO</li>
+          <li>2 h pre-procedure</li>
+          <li>Every 6 to 8 hours</li>
+          <li>Titrate +25% every 48 h</li>
+          <li>Reassess at each step</li>
+          <li>Max 0.05 mg/kg</li>
+          <li class="fc-safe-line">No serotonin risk</li>
+        </ul>
+        <div class="fc-action-row">
+          <strong>If no response at max:</strong> add trazodone at starting dose
+        </div>
+      </div>
+    </div>
+
+    <div class="fc-callout">
+      <strong>Combination rule.</strong> Add the other primary drug at its starting dose. Keep the original at its maximum during titration of the second. Only change one drug's dose at a time. If the second drug shows clinical effect, stop the original (no weaning needed if used 14 days or less).
+    </div>
+    <div class="fc-arrow-down"></div>
+
+    <div class="fc-box fc-purple">
+      <span class="fc-step-label">Step 5 · Adjunct (optional, from day 1)</span>
+      <div class="fc-box-title">Gabapentin or pregabalin</div>
+      <div class="fc-box-sub">Can be added alongside the primary drug from day 1, or added later if response is inadequate.</div>
+      <div class="fc-split">
+        <div class="fc-split-half">
+          <strong>Gabapentin</strong>
+          10 mg/kg PO q8 to 12 h<br>
+          Titrate +50% q48 h<br>
+          Max 40 mg/kg
+        </div>
+        <div class="fc-split-half">
+          <strong>Pregabalin</strong>
+          2 mg/kg PO q8 to 12 h<br>
+          Titrate +50% q48 h<br>
+          Max 10 mg/kg
+        </div>
+      </div>
+      <div class="fc-warn-inline">When changing one drug's dose, do not change another drug's dose simultaneously. You will not know which is producing the effect.</div>
+    </div>
+    <div class="fc-arrow-down"></div>
+
+    <div class="fc-box fc-blue">
+      <span class="fc-step-label">Step 6</span>
+      <div class="fc-box-title">Weaning</div>
+      <ul class="fc-box-list">
+        <li>14 days or less of use: no weaning required</li>
+        <li>More than 28 days of use: reduce by 25 to 50% each week</li>
+        <li>14 to 28 days: clinical judgement</li>
+      </ul>
+    </div>
+    <div class="fc-arrow-down"></div>
+
+    <div class="fc-box fc-amber">
+      <span class="fc-step-label">Step 7</span>
+      <div class="fc-box-title">Monitor for serotonin syndrome</div>
+      <div class="fc-box-sub">Onset 30 min to 12 h. See recognition and emergency panels below.</div>
+    </div>
+
+  </div>
+</section>
+
+<section class="sec">
+  <h3 class="sec-title">Drug reference</h3>
+  <div class="drug-grid">
+
+    <div class="drug-card">
+      <h4>Trazodone</h4>
+      <span class="tag">SARI</span><span class="tag">Fear, anxiety</span>
+      <dl>
+        <dt>Class</dt>
+        <dd>Serotonin antagonist and reuptake inhibitor (SARI), serotonergic</dd>
+        <dt>Available tablet strengths</dt>
+        <dd>25 mg, 50 mg, 100 mg (scored, can be halved or quartered)</dd>
+        <dt>Starting dose</dt>
+        <dd>4 mg/kg PO, 1 to 2 h pre-procedure</dd>
+        <dt>Post-op frequency</dt>
+        <dd>Every 8 hours</dd>
+        <dt>Titration</dt>
+        <dd>Increase by 25% every 48 hours; reassess at each step</dd>
+        <dt>Max standalone</dt>
+        <dd>10 mg/kg per dose</dd>
+        <dt>Max with another serotonergic drug</dt>
+        <dd class="cap">7 mg/kg, hard cap</dd>
+        <dt>Renal or hepatic disease</dt>
+        <dd>Stay at lower end (4 mg/kg)</dd>
+        <dt>Onset and duration</dt>
+        <dd>30 to 60 min onset, 4 h or more duration</dd>
+      </dl>
+    </div>
+
+    <div class="drug-card">
+      <h4>Clonidine</h4>
+      <span class="tag">Alpha-2 agonist</span><span class="tag">Arousal, reactivity</span>
+      <dl>
+        <dt>Class</dt>
+        <dd>Central alpha-2 adrenergic agonist, non-serotonergic</dd>
+        <dt>Available tablet strengths</dt>
+        <dd>100 mcg, 150 mcg, 1200 mcg (compounded; can be halved or quartered)</dd>
+        <dt>Starting dose</dt>
+        <dd>0.02 mg/kg PO, 2 h pre-procedure</dd>
+        <dt>Post-op frequency</dt>
+        <dd>Every 6 to 8 hours</dd>
+        <dt>Titration</dt>
+        <dd>Increase by 25% every 48 hours; reassess at each step</dd>
+        <dt>Maximum</dt>
+        <dd>0.05 mg/kg per dose</dd>
+        <dt>Renal disease</dt>
+        <dd>Stay at lower end (0.01 to 0.02 mg/kg)</dd>
+        <dt>Onset and duration</dt>
+        <dd>30 min to 2 h onset, 3 to 4 h duration</dd>
+        <dt>Serotonin risk</dt>
+        <dd class="safe">None</dd>
+      </dl>
+    </div>
+
+    <div class="drug-card">
+      <h4>Gabapentin</h4>
+      <span class="tag">Adjunct</span><span class="tag">Combinable</span>
+      <dl>
+        <dt>Class</dt>
+        <dd>GABA analogue, non-serotonergic</dd>
+        <dt>Starting dose</dt>
+        <dd>10 mg/kg PO, 1 to 2 h pre-procedure</dd>
+        <dt>Post-op frequency</dt>
+        <dd>Every 8 to 12 hours</dd>
+        <dt>Titration</dt>
+        <dd>Increase by 50% every 48 hours; reassess at each step</dd>
+        <dt>Maximum</dt>
+        <dd>40 mg/kg per dose</dd>
+        <dt>Renal or hepatic disease</dt>
+        <dd>Stay at lower end (10 mg/kg)</dd>
+        <dt>Combines with</dt>
+        <dd>Trazodone and clonidine</dd>
+      </dl>
+    </div>
+
+    <div class="drug-card">
+      <h4>Pregabalin</h4>
+      <span class="tag">Adjunct</span><span class="tag">Combinable</span>
+      <dl>
+        <dt>Class</dt>
+        <dd>GABA analogue, non-serotonergic</dd>
+        <dt>Starting dose</dt>
+        <dd>2 mg/kg PO, 1 to 2 h pre-procedure</dd>
+        <dt>Post-op frequency</dt>
+        <dd>Every 8 to 12 hours</dd>
+        <dt>Titration</dt>
+        <dd>Increase by 50% every 48 hours; reassess at each step</dd>
+        <dt>Maximum</dt>
+        <dd>10 mg/kg per dose</dd>
+        <dt>Renal disease</dt>
+        <dd>Stay at lower end (2 mg/kg)</dd>
+        <dt>Combines with</dt>
+        <dd>Trazodone and clonidine</dd>
+      </dl>
+    </div>
+
+  </div>
+</section>
+
+<section class="sec">
+  <div class="alert alert-info">
+    <h4>Serotonergic drugs to screen for</h4>
+    <p style="font-size:13px;margin:0 0 8px;color:var(--text-info)">These drug classes increase serotonin activity. Combining them with trazodone triggers the 7 mg/kg trazodone cap.</p>
+    <ul>
+      <li><strong>SARIs:</strong> trazodone (the protocol drug itself, listed for awareness)</li>
+      <li><strong>SSRIs:</strong> fluoxetine, paroxetine, sertraline, citalopram</li>
+      <li><strong>SNRIs:</strong> venlafaxine</li>
+      <li><strong>TCAs:</strong> clomipramine, amitriptyline</li>
+      <li><strong>MAOIs:</strong> selegiline</li>
+      <li><strong>Opioid analgesics:</strong> tramadol</li>
+      <li><strong>Antiemetics:</strong> ondansetron</li>
+      <li><strong>Other:</strong> mirtazapine</li>
+      <li><strong>Supplements:</strong> 5-HTP, St John's Wort</li>
+    </ul>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="alert alert-warning">
+    <h4>Recognise serotonin syndrome</h4>
+    <ul>
+      <li><strong>CNS:</strong> agitation, restlessness, vocalisation, mydriasis, ataxia, hyperreflexia, tremors, seizures</li>
+      <li><strong>Autonomic:</strong> hyperthermia, tachycardia or bradycardia, hypertension, hypersalivation, panting</li>
+      <li><strong>GI:</strong> vomiting, diarrhoea, abdominal pain</li>
+      <li><strong>Neuromuscular:</strong> muscle rigidity, fasciculation, shivering</li>
+      <li><strong>Onset:</strong> 30 min to 12 h post-dose. Duration with treatment 24 to 72 h</li>
+    </ul>
+  </div>
+
+  <div class="alert alert-danger">
+    <h4>If serotonin syndrome suspected</h4>
+    <ul>
+      <li><strong>Stop</strong> all serotonergic drugs immediately</li>
+      <li><strong>Cyproheptadine</strong> 1.1 mg/kg PO or per rectum every 4 to 6 h (crush and mix with saline if needed)</li>
+      <li><strong>Alternative:</strong> chlorpromazine 0.2 to 0.5 mg/kg IV, IM or SC every 6 h</li>
+      <li><strong>Supportive care:</strong> IV crystalloids 10 to 20 mL/kg bolus for hypovolaemia, active cooling for hyperthermia, methocarbamol for tremors</li>
+      <li><strong>Seizures:</strong> diazepam or midazolam as indicated</li>
+      <li><strong>Refer</strong> to 24-h emergency facility if severe or refractory</li>
+    </ul>
+  </div>
+</section>
+
+<div class="footnote">
+  Version 1.6. Dose ranges sourced from Plumb's Veterinary Drug Handbook, BSAVA Small Animal Formulary, Today's Veterinary Nurse / ASPCA APCC, dvm360, and Clinician's Brief. Trazodone caps reflect a conservative protocol set below the published 14 mg/kg co-administration ceiling. Many canine dose recommendations for clonidine, gabapentin, and pregabalin are extrapolated from human data and anecdotal clinical use rather than controlled veterinary trials. Tablet equivalents are calculated to nearest quarter-tablet using the strength you selected; actual delivered dose may differ slightly from target. Always verify current edition references and use clinical judgement. Press Ctrl or Cmd + P to print.
+</div>
+
+</div>
+
+<script>
+function formatNum(n, maxDecimals) {
+  if (!isFinite(n) || n <= 0) return '0';
+  return parseFloat(n.toFixed(maxDecimals)).toString();
+}
+
+function formatDose(mg) {
+  if (!isFinite(mg) || mg <= 0) return '0';
+  if (mg >= 100) return Math.round(mg).toString();
+  if (mg >= 10) return parseFloat(mg.toFixed(1)).toString();
+  if (mg >= 1) return mg.toFixed(1);
+  return mg.toFixed(2);
+}
+
+function formatMcg(mcg) {
+  if (!isFinite(mcg) || mcg <= 0) return '0';
+  if (mcg === Math.round(mcg)) return Math.round(mcg).toString();
+  return mcg.toFixed(1).replace(/\.0$/, '');
+}
+
+function formatActualMg(mg) {
+  if (mg === Math.round(mg)) return Math.round(mg).toString();
+  return mg.toFixed(2).replace(/\.?0+$/, '');
+}
+
+function fraction(n) {
+  if (n === 0) return '0';
+  if (n === Math.floor(n)) return n.toString();
+  var whole = Math.floor(n);
+  var frac = n - whole;
+  var fracStr;
+  if (Math.abs(frac - 0.25) < 0.01) fracStr = '\u00BC';
+  else if (Math.abs(frac - 0.5) < 0.01) fracStr = '\u00BD';
+  else if (Math.abs(frac - 0.75) < 0.01) fracStr = '\u00BE';
+  else return n.toFixed(2);
+  return whole > 0 ? whole + fracStr : fracStr;
+}
+
+function trazTablet(targetMg, strengthMg) {
+  var quarter = strengthMg / 4;
+  var numQuarters = Math.round(targetMg / quarter);
+  if (numQuarters < 1) numQuarters = 1;
+  var actual = numQuarters * quarter;
+  return {
+    count: numQuarters / 4,
+    strength: strengthMg,
+    actual: actual,
+    label: fraction(numQuarters / 4) + ' \u00D7 ' + strengthMg + ' mg = ' + formatActualMg(actual) + ' mg'
+  };
+}
+
+function clonTablet(targetMg, strengthMcg) {
+  var targetMcg = targetMg * 1000;
+  var quarter = strengthMcg / 4;
+  var numQuarters = Math.round(targetMcg / quarter);
+  if (numQuarters < 1) numQuarters = 1;
+  var actualMcg = numQuarters * quarter;
+  return {
+    count: numQuarters / 4,
+    strength: strengthMcg,
+    actualMcg: actualMcg,
+    actualMg: actualMcg / 1000,
+    label: fraction(numQuarters / 4) + ' \u00D7 ' + strengthMcg + ' mcg = ' + formatMcg(actualMcg) + ' mcg'
+  };
+}
+
+function trazDoseBlock(title, mgkg, weight, strengthMg, maxMgKg, blockClass) {
+  var mg = mgkg * weight;
+  var tab = trazTablet(mg, strengthMg);
+  var actualMgKg = tab.actual / weight;
+  var warn = '';
+  if (actualMgKg > maxMgKg + 0.05) {
+    warn = '<div class="tablet-warn">Tablet delivers ' + formatNum(actualMgKg, 2) + ' mg/kg (above ' + maxMgKg + ' mg/kg cap). Use a smaller strength for accuracy.</div>';
+  }
+  var html = '<div class="dose-block ' + (blockClass || '') + '">';
+  html += '<div class="dose-block-title">' + title + '</div>';
+  html += '<div class="dose-block-value">' + formatNum(mgkg, 2) + ' mg/kg</div>';
+  html += '<div class="dose-block-mg">For ' + formatNum(weight, 1) + ' kg dog: ' + formatDose(mg) + ' mg per dose</div>';
+  html += '<div class="dose-block-tablet"><span class="tab-label">Tablet (' + strengthMg + ' mg strength)</span>' + tab.label + '</div>';
+  html += warn;
+  html += '</div>';
+  return html;
+}
+
+function clonDoseBlock(title, mgkg, weight, strengthMcg, blockClass) {
+  var mg = mgkg * weight;
+  var mcg = mg * 1000;
+  var tab = clonTablet(mg, strengthMcg);
+  var actualMgKg = tab.actualMg / weight;
+  var warn = '';
+  if (actualMgKg > 0.05 + 0.001) {
+    warn = '<div class="tablet-warn">Tablet delivers ' + formatNum(actualMgKg, 3) + ' mg/kg (above 0.05 mg/kg cap). Use a smaller strength for accuracy.</div>';
+  }
+  var html = '<div class="dose-block ' + (blockClass || '') + '">';
+  html += '<div class="dose-block-title">' + title + '</div>';
+  html += '<div class="dose-block-value">' + formatNum(mgkg, 3) + ' mg/kg</div>';
+  html += '<div class="dose-block-mg">For ' + formatNum(weight, 1) + ' kg dog: ' + formatDose(mg) + ' mg (' + formatMcg(mcg) + ' mcg) per dose</div>';
+  html += '<div class="dose-block-tablet"><span class="tab-label">Tablet (' + strengthMcg + ' mcg strength)</span>' + tab.label + '</div>';
+  html += warn;
+  html += '</div>';
+  return html;
+}
+
+function recalc() {
+  var weight = parseFloat(document.getElementById('weight').value);
+  var resultEl = document.getElementById('calc-result');
+
+  if (!weight || weight <= 0 || weight > 100) {
+    resultEl.innerHTML = '<p style="margin:0;color:var(--text-secondary);font-size:13px">Enter a valid weight between 0.5 and 100 kg.</p>';
+    return;
+  }
+
+  var behaviour = document.getElementById('behaviour').value;
+  var serotonergic = document.getElementById('serotonergic').value === 'yes';
+  var organ = document.getElementById('organ').value === 'yes';
+  var currentMgKg = parseFloat(document.getElementById('current-dose').value);
+  var trazStrength = parseInt(document.getElementById('traz-strength').value);
+  var clonStrength = parseInt(document.getElementById('clon-strength').value);
+
+  if (!isFinite(currentMgKg) || currentMgKg < 0) {
+    currentMgKg = 0;
+  }
+
+  var html = '';
+
+  if (organ) {
+    html += '<div class="organ-warning-top">';
+    html += '<h4>\u26A0 Renal or hepatic disease</h4>';
+    html += '<p>Stay at the starting dose. Do not titrate up without close monitoring of liver enzymes, urea, and creatinine. Trazodone is hepatically metabolised; gabapentin and pregabalin are renally cleared.</p>';
+    html += '</div>';
+  }
+
+  if (behaviour === 'fear') {
+    var startMgKg = 4;
+    var maxMgKg = serotonergic ? 7 : 10;
+
+    html += '<h4>Primary drug</h4>';
+    html += '<p class="primary-drug">Trazodone</p>';
+    html += '<p class="indication">For fearful patient</p>';
+
+    if (serotonergic) {
+      html += '<div class="cap-warning">Another serotonergic drug on board. Hard cap at 7 mg/kg per dose for trazodone to prevent serotonin syndrome.</div>';
+    }
+
+    html += '<div class="dose-row"><span class="label">Frequency</span><span class="value">Every 8 hours</span></div>';
+    html += '<div class="dose-row"><span class="label">Pre-procedure</span><span class="value">1 to 2 hours before</span></div>';
+
+    html += trazDoseBlock('Current dose', currentMgKg, weight, trazStrength, maxMgKg, '');
+
+    if (currentMgKg >= maxMgKg) {
+      html += '<div class="max-warning-banner">';
+      html += '<h4>Maximum dose reached</h4>';
+      html += '<p>Seek alternate medications or consult a behavioural veterinarian. Combination protocol below.</p>';
+      html += '</div>';
+
+      html += '<div class="result-section"><h4>Combination protocol</h4>';
+      html += '<p style="margin:0 0 8px;font-size:13px;color:var(--text-secondary)">Add clonidine while keeping trazodone at its maximum dose. Titrate clonidine by +25% every 48 hours. Only change one drug at a time. If clonidine works, stop trazodone (no weaning needed if used 14 days or less).</p>';
+      html += clonDoseBlock('Clonidine starting dose', 0.02, weight, clonStrength, '');
+      html += clonDoseBlock('Clonidine maximum', 0.05, weight, clonStrength, 'max-dose');
+      html += '<div class="dose-row"><span class="label">Clonidine frequency</span><span class="value">Every 6 to 8 hours, 2 h pre-procedure</span></div>';
+      html += '</div>';
+    } else {
+      var nextMgKg = currentMgKg * 1.25;
+      var atMaxNext = nextMgKg >= maxMgKg;
+      if (nextMgKg > maxMgKg) nextMgKg = maxMgKg;
+      var nextTitle = atMaxNext ? 'Next dose (will reach MAXIMUM)' : 'Next dose (after 48 h reassessment, if no response)';
+      html += trazDoseBlock(nextTitle, nextMgKg, weight, trazStrength, maxMgKg, 'next-dose');
+      html += '<div class="dose-row"><span class="label">Trazodone maximum</span><span class="value">' + maxMgKg + ' mg/kg = ' + formatDose(maxMgKg * weight) + ' mg per dose</span></div>';
+    }
+  } else {
+    var cStartMgKg = 0.02;
+    var cMaxMgKg = 0.05;
+
+    html += '<h4>Primary drug</h4>';
+    html += '<p class="primary-drug">Clonidine</p>';
+    html += '<p class="indication">For aroused or reactive patient</p>';
+
+    html += '<div class="dose-row"><span class="label">Frequency</span><span class="value">Every 6 to 8 hours</span></div>';
+    html += '<div class="dose-row"><span class="label">Pre-procedure</span><span class="value">2 hours before</span></div>';
+
+    html += clonDoseBlock('Current dose', currentMgKg, weight, clonStrength, '');
+
+    if (currentMgKg >= cMaxMgKg) {
+      html += '<div class="max-warning-banner">';
+      html += '<h4>Maximum dose reached</h4>';
+      html += '<p>Seek alternate medications or consult a behavioural veterinarian. Combination protocol below.</p>';
+      html += '</div>';
+
+      html += '<div class="result-section"><h4>Combination protocol</h4>';
+      html += '<p style="margin:0 0 8px;font-size:13px;color:var(--text-secondary)">Add trazodone while keeping clonidine at its maximum dose. Titrate trazodone by +25% every 48 hours. Only change one drug at a time. If trazodone works, stop clonidine (no weaning needed if used 14 days or less).</p>';
+      if (serotonergic) {
+        html += '<div class="cap-warning">Another serotonergic drug on board. Hard cap at 7 mg/kg per dose for trazodone to prevent serotonin syndrome.</div>';
+      }
+      var tMaxMgKg = serotonergic ? 7 : 10;
+      html += trazDoseBlock('Trazodone starting dose', 4, weight, trazStrength, tMaxMgKg, '');
+      html += trazDoseBlock('Trazodone maximum', tMaxMgKg, weight, trazStrength, tMaxMgKg, 'max-dose');
+      html += '<div class="dose-row"><span class="label">Trazodone frequency</span><span class="value">Every 8 hours, 1 to 2 h pre-procedure</span></div>';
+      html += '</div>';
+    } else {
+      var nextMgKg = currentMgKg * 1.25;
+      var atMaxNext = nextMgKg >= cMaxMgKg;
+      if (nextMgKg > cMaxMgKg) nextMgKg = cMaxMgKg;
+      var nextTitle = atMaxNext ? 'Next dose (will reach MAXIMUM)' : 'Next dose (after 48 h reassessment, if no response)';
+      html += clonDoseBlock(nextTitle, nextMgKg, weight, clonStrength, 'next-dose');
+      html += '<div class="dose-row"><span class="label">Clonidine maximum</span><span class="value">0.05 mg/kg = ' + formatDose(0.05 * weight) + ' mg per dose</span></div>';
+    }
+  }
+
+  if (organ) {
+    // Organ warning now shown at top of result panel
+  }
+
+  var gabaStart = weight * 10;
+  var gabaMax = weight * 40;
+  var pregabStart = weight * 2;
+  var pregabMax = weight * 10;
+
+  html += '<div class="result-section">';
+  html += '<h4>Adjunct sedative (optional, from day 1)</h4>';
+  html += '<p style="margin:0 0 8px;font-size:13px;color:var(--text-secondary)">Either can be added to the primary drug from day 1 or later. Titrate by 50% every 48 hours. Do not change another drug\'s dose at the same time.</p>';
+  html += '<div class="adjunct-grid">';
+  html += '<div class="adjunct-card-mini"><div class="name">Gabapentin</div>';
+  html += '<div class="dose-line">Start: 10 mg/kg = ' + formatDose(gabaStart) + ' mg</div>';
+  html += '<div class="dose-line">Max: 40 mg/kg = ' + formatDose(gabaMax) + ' mg</div>';
+  html += '<div class="dose-line">Every 8 to 12 hours</div></div>';
+  html += '<div class="adjunct-card-mini"><div class="name">Pregabalin</div>';
+  html += '<div class="dose-line">Start: 2 mg/kg = ' + formatDose(pregabStart) + ' mg</div>';
+  html += '<div class="dose-line">Max: 10 mg/kg = ' + formatDose(pregabMax) + ' mg</div>';
+  html += '<div class="dose-line">Every 8 to 12 hours</div></div>';
+  html += '</div></div>';
+
+  html += '<div class="result-section">';
+  html += '<h4>Weaning reminder</h4>';
+  html += '<p style="margin:0;font-size:13px;color:var(--text-secondary)">14 days or less: no weaning required. More than 28 days: reduce by 25 to 50% per week until off. Between 14 and 28 days: use clinical judgement.</p>';
+  html += '</div>';
+
+  resultEl.innerHTML = html;
+}
+
+function updateDimming() {
+  var behaviour = document.getElementById('behaviour').value;
+  var trazField = document.getElementById('traz-strength-field');
+  var clonField = document.getElementById('clon-strength-field');
+  var trazHelp = document.getElementById('traz-help');
+  var clonHelp = document.getElementById('clon-help');
+
+  if (behaviour === 'fear') {
+    trazField.classList.remove('dimmed');
+    clonField.classList.add('dimmed');
+    trazHelp.textContent = 'Primary drug';
+    clonHelp.textContent = 'Used only if combination triggered';
+  } else {
+    clonField.classList.remove('dimmed');
+    trazField.classList.add('dimmed');
+    clonHelp.textContent = 'Primary drug';
+    trazHelp.textContent = 'Used only if combination triggered';
+  }
+}
+
+document.getElementById('behaviour').addEventListener('change', function() {
+  var behaviour = this.value;
+  var currentDoseInput = document.getElementById('current-dose');
+  currentDoseInput.value = behaviour === 'fear' ? '4' : '0.02';
+  updateDimming();
+  recalc();
+});
+
+document.getElementById('weight').addEventListener('input', recalc);
+document.getElementById('serotonergic').addEventListener('change', recalc);
+document.getElementById('organ').addEventListener('change', recalc);
+document.getElementById('current-dose').addEventListener('input', recalc);
+document.getElementById('traz-strength').addEventListener('change', recalc);
+document.getElementById('clon-strength').addEventListener('change', recalc);
+updateDimming();
+recalc();
+</script>
+
+</body>
+</html>
